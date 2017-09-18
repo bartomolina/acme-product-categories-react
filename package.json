@@ -4,7 +4,10 @@
   "description": "1706-FSA-FLEX-NY Weekend assignment 07",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "node ./node_modules/webpack/bin/webpack.js",
+    "start:dev:win": "nodemon --ignore src/ --ignore dist/ server.js",
+    "start:dev": "npm run webpack -- -w & nodemon --ignore src/ --ignore dist/ server.js"
   },
   "repository": {
     "type": "git",
@@ -17,12 +20,23 @@
     "url": "https://github.com/bartomolina/acme-product-categories-react/issues"
   },
   "homepage": "https://github.com/bartomolina/acme-product-categories-react#readme",
-  "devDependencies": {
+  "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.18.1",
     "bootstrap": "^3.3.7",
     "express": "^4.15.4",
     "method-override": "^2.3.9",
-    "pq": "0.0.3",
+    "pg": "^7.3.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
     "sequelize": "^4.8.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.6.0"
   }
 }

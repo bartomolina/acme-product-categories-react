@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <script src='/dist/bundle.js' defer></script>
+    <link rel='stylesheet' href='/vendor/bootstrap/dist/css/bootstrap.css' />
+</head>
+
+<body>
+    <div id="root">
+        <div data-reactroot="" class="container">
+            <h1>Acme Product/Categories React</h1>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>
+
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Add a Product</div>
+                        <div class="panel-body">
+                            <form>
+                                <div class="form-group"><label>Name</label><input name="name" class="form-control" value=""></div>
+                                <div class="form-group"><label>Price</label><input type="number" name="price" class="form-control" value="0"></div>
+                                <div class="form-group"><label>Instock</label><br><input type="checkbox" name="inStock" value="on"></div>
+                                <div class="form-group"><label>Category</label><select name="categoryId" class="form-control"><option value="">-- none --</option><option value="1">Foo Category</option><option value="2">Bar Category</option><option value="3">Bazz Category</option></select></div>
+                                <div class="form-group"><button class="btn btn-primary btn-block">Save</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Product Summary</div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <!-- react-text: 32 -->There are
+                                    <!-- /react-text --><strong>3</strong>
+                                    <!-- react-text: 34 -->products.
+                                    <!-- /react-text -->
+                                </li>
+                                <li class="list-group-item">
+                                    <!-- react-text: 36 -->Categories:
+                                    <!-- /react-text -->
+                                    <ul>
+                                        <li>
+                                            <!-- react-text: 120 -->Foo Category
+                                            <!-- /react-text -->
+                                            <!-- react-text: 121 -->has
+                                            <!-- /react-text --><strong>1</strong>
+                                            <!-- react-text: 123 -->Products
+                                            <!-- /react-text -->
+                                        </li>
+                                        <li>
+                                            <!-- react-text: 125 -->Bar Category
+                                            <!-- /react-text -->
+                                            <!-- react-text: 126 -->has
+                                            <!-- /react-text --><strong>1</strong>
+                                            <!-- react-text: 128 -->Products
+                                            <!-- /react-text -->
+                                        </li>
+                                        <li>
+                                            <!-- react-text: 130 -->Bazz Category
+                                            <!-- /react-text -->
+                                            <!-- react-text: 131 -->has
+                                            <!-- /react-text --><strong>1</strong>
+                                            <!-- react-text: 133 -->Products
+                                            <!-- /react-text -->
+                                        </li>
+                                        <li><strong>0</strong>
+                                            <!-- react-text: 40 -->product(s) have no category.
+                                            <!-- /react-text -->
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="list-group-item">
+                                    <!-- react-text: 135 -->Most Expensive product is
+                                    <!-- /react-text --><strong>martin!</strong>
+                                    <!-- react-text: 137 -->at
+                                    <!-- /react-text -->
+                                    <!-- react-text: 138 -->2500
+                                    <!-- /react-text -->
+                                </li>
+                                <li class="list-group-item">
+                                    <!-- react-text: 42 -->Products not in stock are
+                                    <!-- /react-text --><span style="padding-right: 10px;">martin!</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
