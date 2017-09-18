@@ -27,14 +27,12 @@ const Product = ({ product }) => {
 }
 const ProductList = ({ products }) => {
     return (
-        <div className="col-sm-6">
-            <div>
-                {products.map(product => {
-                    return (
-                        <Product key={product.id} product={product} />
-                    )
-                })}
-            </div>
+        <div>
+            {products.map(product => {
+                return (
+                    <Product key={product.id} product={product} />
+                )
+            })}
         </div>
     )
 }

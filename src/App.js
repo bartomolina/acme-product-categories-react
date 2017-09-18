@@ -28,7 +28,12 @@ class App extends Component {
             <div className='container'>
                 <h1>Acme Product/Categories React</h1>
                 <div className="row">
-                    <Route render={(router) => <ProductList products={products} />} />
+                    <div className="col-sm-6">
+                        <Route render={(router) => <ProductList products={products} />} />
+                    </div>
+                    <div className="col-sm-3">
+                        <Route render={(router) => <ProductForm products={products} />} />
+                    </div>
                 </div>
             </div>
         )

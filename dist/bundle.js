@@ -24525,9 +24525,20 @@ var App = function (_Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
-                    _react2.default.createElement(_reactRouterDom.Route, { render: function render(router) {
-                            return _react2.default.createElement(_ProductList2.default, { products: products });
-                        } })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-sm-6' },
+                        _react2.default.createElement(_reactRouterDom.Route, { render: function render(router) {
+                                return _react2.default.createElement(_ProductList2.default, { products: products });
+                            } })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-sm-3' },
+                        _react2.default.createElement(_reactRouterDom.Route, { render: function render(router) {
+                                return _react2.default.createElement(_ProductForm2.default, { products: products });
+                            } })
+                    )
                 )
             );
         }
@@ -25419,6 +25430,117 @@ module.exports = function spread(callback) {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductForm = function ProductForm(_ref) {
+    var products = _ref.products;
+
+    return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+            "div",
+            { className: "panel panel-default" },
+            _react2.default.createElement(
+                "div",
+                { className: "panel-heading" },
+                "Add a Product"
+            ),
+            _react2.default.createElement(
+                "div",
+                { className: "panel-body" },
+                _react2.default.createElement(
+                    "form",
+                    { onSubmit: onSave },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "form-group" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Name"
+                        ),
+                        _react2.default.createElement("input", { name: "name", className: "form-control", value: "" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "form-group" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Price"
+                        ),
+                        _react2.default.createElement("input", { type: "number", name: "price", className: "form-control", value: "0" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "form-group" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Instock"
+                        ),
+                        _react2.default.createElement("br", null),
+                        _react2.default.createElement("input", { type: "checkbox", name: "inStock", value: "on" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "form-group" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Category"
+                        ),
+                        _react2.default.createElement(
+                            "select",
+                            { name: "categoryId", className: "form-control" },
+                            _react2.default.createElement(
+                                "option",
+                                { value: "" },
+                                "-- none --"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "1" },
+                                "Foo Category"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "2" },
+                                "Bar Category"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "3" },
+                                "Bazz Category"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "form-group" },
+                        _react2.default.createElement(
+                            "button",
+                            { className: "btn btn-primary btn-block" },
+                            "Save"
+                        )
+                    )
+                )
+            )
+        )
+    );
+};
+
+exports.default = ProductForm;
+
 /***/ }),
 /* 231 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -25541,14 +25663,10 @@ var ProductList = function ProductList(_ref2) {
 
     return _react2.default.createElement(
         'div',
-        { className: 'col-sm-6' },
-        _react2.default.createElement(
-            'div',
-            null,
-            products.map(function (product) {
-                return _react2.default.createElement(Product, { key: product.id, product: product });
-            })
-        )
+        null,
+        products.map(function (product) {
+            return _react2.default.createElement(Product, { key: product.id, product: product });
+        })
     );
 };
 
