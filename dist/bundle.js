@@ -24552,7 +24552,8 @@ var App = function (_Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
         _this.state = {
-            products: []
+            products: [],
+            categories: []
         };
 
         _this.syncDB = _this.syncDB.bind(_this);
@@ -24566,7 +24567,9 @@ var App = function (_Component) {
             var _this2 = this;
 
             _axios2.default.get('/api/products').then(function (products) {
-                _this2.setState({ products: products.data });
+                _axios2.default.get('api/categories').then(function (categories) {
+                    _this2.setState({ products: products.data, categories: categories.data });
+                });
             });
         }
     }, {
@@ -24596,7 +24599,9 @@ var App = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var products = this.state.products;
+            var _state = this.state,
+                products = _state.products,
+                categories = _state.categories;
             var onSaveProduct = this.onSaveProduct,
                 syncDB = this.syncDB;
 
@@ -24629,14 +24634,14 @@ var App = function (_Component) {
                         'div',
                         { className: 'col-sm-6' },
                         _react2.default.createElement(_reactRouterDom.Route, { render: function render(router) {
-                                return _react2.default.createElement(_ProductList2.default, { products: products });
+                                return _react2.default.createElement(_ProductList2.default, { products: products, categories: categories });
                             } })
                     ),
                     _react2.default.createElement(
                         'div',
                         { className: 'col-sm-3' },
                         _react2.default.createElement(_reactRouterDom.Route, { render: function render(router) {
-                                return _react2.default.createElement(_ProductForm2.default, { products: products, onSaveProduct: onSaveProduct });
+                                return _react2.default.createElement(_ProductForm2.default, { products: products, onSaveProduct: onSaveProduct, categories: categories });
                             } })
                     )
                 )
@@ -25559,10 +25564,10 @@ var ProductForm = function (_Component) {
         var _this = _possibleConstructorReturn(this, (ProductForm.__proto__ || Object.getPrototypeOf(ProductForm)).call(this));
 
         _this.state = {
-            name: 'test',
+            name: '',
             price: 0,
             inStock: true,
-            category: ''
+            categoryId: null
         };
 
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -25575,6 +25580,12 @@ var ProductForm = function (_Component) {
         value: function handleSubmit(ev) {
             ev.preventDefault();
             this.props.onSaveProduct(this.state);
+            this.setState({
+                name: '',
+                price: 0,
+                inStock: true,
+                categoryId: ''
+            });
         }
     }, {
         key: 'handleInputChange',
@@ -25594,7 +25605,7 @@ var ProductForm = function (_Component) {
                 name = _state.name,
                 price = _state.price,
                 inStock = _state.inStock,
-                category = _state.category;
+                categoryId = _state.categoryId;
             var handleSubmit = this.handleSubmit,
                 handleInputChange = this.handleInputChange;
 
@@ -25656,27 +25667,19 @@ var ProductForm = function (_Component) {
                                 ),
                                 _react2.default.createElement(
                                     'select',
-                                    { onChange: handleInputChange, value: category, name: 'categoryId', className: 'form-control' },
+                                    { onChange: handleInputChange, value: categoryId || '', name: 'categoryId', className: 'form-control' },
                                     _react2.default.createElement(
                                         'option',
                                         { value: '' },
                                         '-- none --'
                                     ),
-                                    _react2.default.createElement(
-                                        'option',
-                                        { value: '1' },
-                                        'Foo Category'
-                                    ),
-                                    _react2.default.createElement(
-                                        'option',
-                                        { value: '2' },
-                                        'Bar Category'
-                                    ),
-                                    _react2.default.createElement(
-                                        'option',
-                                        { value: '3' },
-                                        'Bazz Category'
-                                    )
+                                    this.props.categories.map(function (category) {
+                                        return _react2.default.createElement(
+                                            'option',
+                                            { key: category.id, value: category.id },
+                                            category.name
+                                        );
+                                    })
                                 )
                             ),
                             _react2.default.createElement(
@@ -25720,7 +25723,8 @@ var _reactRouterDom = __webpack_require__(59);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Product = function Product(_ref) {
-    var product = _ref.product;
+    var product = _ref.product,
+        categories = _ref.categories;
 
     return _react2.default.createElement(
         'div',
@@ -25775,27 +25779,19 @@ var Product = function Product(_ref) {
                         ),
                         _react2.default.createElement(
                             'select',
-                            { name: 'categoryId', className: 'form-control' },
+                            { value: product.categoryId || '', name: 'categoryId', className: 'form-control' },
                             _react2.default.createElement(
                                 'option',
                                 { value: '' },
                                 '-- none --'
                             ),
-                            _react2.default.createElement(
-                                'option',
-                                { value: '1' },
-                                'Foo Category'
-                            ),
-                            _react2.default.createElement(
-                                'option',
-                                { value: '2' },
-                                'Bar Category'
-                            ),
-                            _react2.default.createElement(
-                                'option',
-                                { value: '3' },
-                                'Bazz Category'
-                            )
+                            categories.map(function (category) {
+                                return _react2.default.createElement(
+                                    'option',
+                                    { key: category.id, value: category.id },
+                                    category.name
+                                );
+                            })
                         )
                     ),
                     _react2.default.createElement(
@@ -25818,13 +25814,14 @@ var Product = function Product(_ref) {
     );
 };
 var ProductList = function ProductList(_ref2) {
-    var products = _ref2.products;
+    var products = _ref2.products,
+        categories = _ref2.categories;
 
     return _react2.default.createElement(
         'div',
         null,
         products.map(function (product) {
-            return _react2.default.createElement(Product, { key: product.id, product: product });
+            return _react2.default.createElement(Product, { key: product.id, product: product, categories: categories });
         })
     );
 };

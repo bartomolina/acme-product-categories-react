@@ -9,7 +9,8 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
-            products: []
+            products: [],
+            categories: []
         }
         
         this.syncDB = this.syncDB.bind(this)
@@ -19,7 +20,10 @@ class App extends Component {
     updateData() {
         axios.get('/api/products')
             .then(products => {
-                this.setState({ products: products.data })
+                axios.get('api/categories')
+                .then(categories => {
+                    this.setState({ products: products.data, categories: categories.data })
+                })
             })
     }
 
@@ -43,7 +47,7 @@ class App extends Component {
     }
 
     render() {
-        const { products } = this.state
+        const { products, categories } = this.state
         const { onSaveProduct, syncDB } = this
 
         return (
@@ -56,10 +60,10 @@ class App extends Component {
                 </form>
                 <div className="row">
                     <div className="col-sm-6">
-                        <Route render={(router) => <ProductList products={products} />} />
+                        <Route render={(router) => <ProductList products={products} categories={categories} />} />
                     </div>
                     <div className="col-sm-3">
-                        <Route render={(router) => <ProductForm products={products} onSaveProduct={onSaveProduct} />} />
+                        <Route render={(router) => <ProductForm products={products} onSaveProduct={onSaveProduct} categories={categories} />} />
                     </div>
                 </div>
             </div>

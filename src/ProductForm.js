@@ -4,10 +4,10 @@ class ProductForm extends Component {
     constructor() {
         super()
         this.state = {
-            name: 'test',
+            name: '',
             price: 0,
             inStock: true,
-            category: ''
+            categoryId: null
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -17,6 +17,12 @@ class ProductForm extends Component {
     handleSubmit(ev) {
         ev.preventDefault()
         this.props.onSaveProduct(this.state)
+        this.setState({
+            name: '',
+            price: 0,
+            inStock: true,
+            categoryId: ''
+        })
     }
 
     handleInputChange(ev) {
@@ -32,7 +38,7 @@ class ProductForm extends Component {
     }
 
     render() {
-        const { name, price, inStock, category } = this.state
+        const { name, price, inStock, categoryId } = this.state
         const { handleSubmit, handleInputChange } = this
         return (
             <div>
@@ -55,11 +61,13 @@ class ProductForm extends Component {
                             </div>
                             <div className="form-group">
                                 <label>Category</label>
-                                <select onChange={handleInputChange} value={category} name="categoryId" className="form-control">
-                                    <option value="">-- none --</option>
-                                    <option value="1">Foo Category</option>
-                                    <option value="2">Bar Category</option>
-                                    <option value="3">Bazz Category</option>
+                                <select onChange={handleInputChange} value={categoryId || ''} name="categoryId" className="form-control">
+                                <option value="">-- none --</option>
+                                    {
+                                        this.props.categories.map(category => (
+                                            <option key={category.id} value={category.id}>{category.name}</option>
+                                        ))
+                                    }
                                 </select>
                             </div>
                             <div className="form-group">
