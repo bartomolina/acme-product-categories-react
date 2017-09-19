@@ -24558,6 +24558,7 @@ var App = function (_Component) {
 
         _this.syncDB = _this.syncDB.bind(_this);
         _this.onSaveProduct = _this.onSaveProduct.bind(_this);
+        _this.onUpdateProduct = _this.onUpdateProduct.bind(_this);
         return _this;
     }
 
@@ -24587,6 +24588,11 @@ var App = function (_Component) {
             });
         }
     }, {
+        key: 'onUpdateProduct',
+        value: function onUpdateProduct() {
+            console.log('Updating product...');
+        }
+    }, {
         key: 'syncDB',
         value: function syncDB(ev) {
             var _this4 = this;
@@ -24603,6 +24609,7 @@ var App = function (_Component) {
                 products = _state.products,
                 categories = _state.categories;
             var onSaveProduct = this.onSaveProduct,
+                onUpdateProduct = this.onUpdateProduct,
                 syncDB = this.syncDB;
 
 
@@ -24634,7 +24641,7 @@ var App = function (_Component) {
                         'div',
                         { className: 'col-sm-6' },
                         _react2.default.createElement(_reactRouterDom.Route, { render: function render(router) {
-                                return _react2.default.createElement(_ProductList2.default, { products: products, categories: categories });
+                                return _react2.default.createElement(_ProductList2.default, { products: products, categories: categories, onUpdateProduct: onUpdateProduct });
                             } })
                     ),
                     _react2.default.createElement(
@@ -25608,6 +25615,8 @@ var ProductForm = function (_Component) {
                 categoryId = _state.categoryId;
             var handleSubmit = this.handleSubmit,
                 handleInputChange = this.handleInputChange;
+            var categories = this.props.categories;
+
 
             return _react2.default.createElement(
                 'div',
@@ -25673,7 +25682,7 @@ var ProductForm = function (_Component) {
                                         { value: '' },
                                         '-- none --'
                                     ),
-                                    this.props.categories.map(function (category) {
+                                    categories.map(function (category) {
                                         return _react2.default.createElement(
                                             'option',
                                             { key: category.id, value: category.id },
@@ -25714,6 +25723,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
@@ -25722,106 +25733,150 @@ var _reactRouterDom = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Product = function Product(_ref) {
-    var product = _ref.product,
-        categories = _ref.categories;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    return _react2.default.createElement(
-        'div',
-        { className: 'col-sm-4' },
-        _react2.default.createElement(
-            'div',
-            { className: 'panel panel-default' },
-            _react2.default.createElement(
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Product = function (_Component) {
+    _inherits(Product, _Component);
+
+    function Product() {
+        _classCallCheck(this, Product);
+
+        var _this = _possibleConstructorReturn(this, (Product.__proto__ || Object.getPrototypeOf(Product)).call(this));
+
+        _this.state = _this.props.product;
+
+        _this.handleUpdate = _this.handleUpdate.bind(_this);
+        return _this;
+    }
+
+    _createClass(Product, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(ev) {
+            console.log(ev.target.value);
+            ev.preventDefault();
+        }
+    }, {
+        key: 'handleUpdate',
+        value: function handleUpdate(ev) {
+            console.log(ev.target.value);
+            this.props.onUpdateProduct();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                product = _props.product,
+                categories = _props.categories;
+            var handleSubmit = this.handleSubmit,
+                handleUpdate = this.handleUpdate;
+
+
+            return _react2.default.createElement(
                 'div',
-                { className: 'panel-body' },
+                { className: 'col-sm-4' },
                 _react2.default.createElement(
-                    'form',
-                    null,
+                    'div',
+                    { className: 'panel panel-default' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'form-group' },
+                        { className: 'panel-body' },
                         _react2.default.createElement(
-                            'label',
-                            null,
-                            'Name'
-                        ),
-                        _react2.default.createElement('input', { name: 'name', className: 'form-control', value: product.name })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Price'
-                        ),
-                        _react2.default.createElement('input', { type: 'number', name: 'price', className: 'form-control', value: product.price })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Instock'
-                        ),
-                        _react2.default.createElement('br', null),
-                        _react2.default.createElement('input', { type: 'checkbox', name: 'inStock', value: product.inStock })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Category'
-                        ),
-                        _react2.default.createElement(
-                            'select',
-                            { value: product.categoryId || '', name: 'categoryId', className: 'form-control' },
+                            'form',
+                            { onSubmit: handleSubmit },
                             _react2.default.createElement(
-                                'option',
-                                { value: '' },
-                                '-- none --'
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Name'
+                                ),
+                                _react2.default.createElement('input', { name: 'name', className: 'form-control', value: product.name })
                             ),
-                            categories.map(function (category) {
-                                return _react2.default.createElement(
-                                    'option',
-                                    { key: category.id, value: category.id },
-                                    category.name
-                                );
-                            })
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'button',
-                            { disabled: '', className: 'btn btn-primary btn-block' },
-                            'Save'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-danger btn-block' },
-                            'Delete'
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Price'
+                                ),
+                                _react2.default.createElement('input', { type: 'number', name: 'price', className: 'form-control', value: product.price })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Instock'
+                                ),
+                                _react2.default.createElement('br', null),
+                                _react2.default.createElement('input', { type: 'checkbox', name: 'inStock', value: product.inStock })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Category'
+                                ),
+                                _react2.default.createElement(
+                                    'select',
+                                    { value: product.categoryId || '', name: 'categoryId', className: 'form-control' },
+                                    _react2.default.createElement(
+                                        'option',
+                                        { value: '' },
+                                        '-- none --'
+                                    ),
+                                    categories.map(function (category) {
+                                        return _react2.default.createElement(
+                                            'option',
+                                            { key: category.id, value: category.id },
+                                            category.name
+                                        );
+                                    })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: handleUpdate, disabled: '', className: 'btn btn-primary btn-block' },
+                                    'Save'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-danger btn-block' },
+                                    'Delete'
+                                )
+                            )
                         )
                     )
                 )
-            )
-        )
-    );
-};
-var ProductList = function ProductList(_ref2) {
-    var products = _ref2.products,
-        categories = _ref2.categories;
+            );
+        }
+    }]);
+
+    return Product;
+}(_react.Component);
+
+var ProductList = function ProductList(_ref) {
+    var products = _ref.products,
+        categories = _ref.categories,
+        onUpdateProduct = _ref.onUpdateProduct;
 
     return _react2.default.createElement(
         'div',
         null,
         products.map(function (product) {
-            return _react2.default.createElement(Product, { key: product.id, product: product, categories: categories });
+            return _react2.default.createElement(Product, { key: product.id, product: product, categories: categories, onUpdateProduct: onUpdateProduct });
         })
     );
 };

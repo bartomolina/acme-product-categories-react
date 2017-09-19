@@ -40,6 +40,8 @@ class ProductForm extends Component {
     render() {
         const { name, price, inStock, categoryId } = this.state
         const { handleSubmit, handleInputChange } = this
+        const { categories } = this.props
+
         return (
             <div>
                 <div className="panel panel-default">
@@ -64,7 +66,7 @@ class ProductForm extends Component {
                                 <select onChange={handleInputChange} value={categoryId || ''} name="categoryId" className="form-control">
                                 <option value="">-- none --</option>
                                     {
-                                        this.props.categories.map(category => (
+                                        categories.map(category => (
                                             <option key={category.id} value={category.id}>{category.name}</option>
                                         ))
                                     }

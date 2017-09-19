@@ -15,6 +15,7 @@ class App extends Component {
         
         this.syncDB = this.syncDB.bind(this)
         this.onSaveProduct = this.onSaveProduct.bind(this)
+        this.onUpdateProduct = this.onUpdateProduct.bind(this)
     }
 
     updateData() {
@@ -38,6 +39,10 @@ class App extends Component {
             })
     }
 
+    onUpdateProduct() {
+        console.log('Updating product...')
+    }
+
     syncDB(ev) {
         ev.preventDefault()
         axios.put('/api/products/')
@@ -48,7 +53,7 @@ class App extends Component {
 
     render() {
         const { products, categories } = this.state
-        const { onSaveProduct, syncDB } = this
+        const { onSaveProduct, onUpdateProduct, syncDB } = this
 
         return (
             <div className='container'>
@@ -60,7 +65,7 @@ class App extends Component {
                 </form>
                 <div className="row">
                     <div className="col-sm-6">
-                        <Route render={(router) => <ProductList products={products} categories={categories} />} />
+                        <Route render={(router) => <ProductList products={products} categories={categories} onUpdateProduct={onUpdateProduct} />} />
                     </div>
                     <div className="col-sm-3">
                         <Route render={(router) => <ProductForm products={products} onSaveProduct={onSaveProduct} categories={categories} />} />
